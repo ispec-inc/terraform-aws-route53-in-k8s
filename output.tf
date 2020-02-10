@@ -11,11 +11,11 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app:${var.application_name}-external-dns
+      app: ${var.application_name}-external-dns
   template:
     metadata:
       labels:
-        app:${var.application_name}-external-dns
+        app: ${var.application_name}-external-dns
       annotations:
         iam.amazonaws.com/role: arn:aws:iam::${data.aws_caller_identity.self.account_id}/${aws_iam_role.route53.name}
     spec:
