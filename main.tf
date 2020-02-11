@@ -6,11 +6,12 @@ resource "aws_iam_role" "route53" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": [
-        "sts:AssumeRole"
-      ],
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
       "Effect": "Allow",
-      "Resource": "*"
+      "Sid": ""
     }
   ]
 }

@@ -1,6 +1,6 @@
 data "aws_caller_identity" "self" {}
 
-resource "local_file" "foo" {
+resource "local_file" "k8s" {
   content  = <<k8sconfig
 apiVersion: apps/v1
 kind: Deployment
@@ -16,6 +16,8 @@ spec:
     metadata:
       labels:
         app: ${var.application_name}-external-dns
+      annotations:
+      iam.amazonaws.com/role: arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/${aws_iam_role.route53.name}
     spec:
       containers:
       - name: external-dns
