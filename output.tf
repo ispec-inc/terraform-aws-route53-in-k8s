@@ -17,7 +17,7 @@ spec:
       labels:
         app: ${var.application_name}-external-dns
       annotations:
-      iam.amazonaws.com/role: arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/${aws_iam_role.route53.name}
+        iam.amazonaws.com/role: arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/${aws_iam_role.route53.name}
     spec:
       containers:
       - name: external-dns
@@ -30,7 +30,7 @@ spec:
         - --policy=upsert-only
         - --aws-zone-type=public
         - --registry=txt
-        - --txt-owner-id=my-hostedzone-identifier
+        - --txt-owner-id={aws_route53_zone.zone_id}
 k8sconfig
   filename = "${path.root}/${var.application_name}-external-urls.yml"
 }
